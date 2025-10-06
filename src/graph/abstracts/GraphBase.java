@@ -19,4 +19,5 @@ public abstract class GraphBase<T, U>
     public boolean isWeighted(){
         return isWeighted;
     }
+
 }

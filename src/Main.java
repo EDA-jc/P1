@@ -1,3 +1,4 @@
+import algorythms.DFS;
 import entity.Client;
 import graph.implementations.AdjacencyListGraph;
 import graph.interfaces.Graph;
@@ -10,14 +11,12 @@ import java.util.Optional;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Graph<Client, Double> graph = new AdjacencyListGraph<>(true, true);
+        Graph<String, Double> graph = new AdjacencyListGraph<>(true, true);
         Client julio = new Client("julio");
         Client anderson = new Client("anderson");
-        graph.addVertex(julio);
-        graph.addVertex(anderson);
-        graph.addRelation(julio, anderson, 2.0);
-
-        graph.showRelations();
-        graph.showVertex();
+        graph.addVertex("julio");
+        graph.addVertex("anderson");
+        graph.addRelation("julio", "anderson", 2.0);
+        new DFS<>(graph);
     }
 }

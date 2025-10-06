@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import graph.abstracts.GraphBase;
+import graph.interfaces.Graph;
 
 public class AdjacencyListGraph<T, U>
         extends GraphBase<T, U> {
@@ -18,6 +19,13 @@ public class AdjacencyListGraph<T, U>
         vertex = new HashMap<>();
     }
     //type restricted methods
+
+    @Override
+    public U getRelation(T first, T second) {
+        Optional<U> weight = vertex.get(first).get(second);
+        return weight.orElse(null);
+    }
+
     @Override
     public void addVertex(T vertex) {
         this.vertex.put(vertex, new HashMap<>());
@@ -69,6 +77,12 @@ public class AdjacencyListGraph<T, U>
     public Set<T> getNeightbours(T vertex) {
         return this.vertex.get(vertex).keySet();
     }
+
+    @Override
+    public Set<T> vertexSet() {
+        return vertex.keySet();
+    }
+
     @Override
     public int size() {
         return this.vertex.size();
@@ -89,5 +103,23 @@ public class AdjacencyListGraph<T, U>
         vertex.keySet().forEach(
                 v-> System.out.println(v.toString())
         );
+    }
+
+    @Override
+    public Graph<T, U> getTransposed() {
+        Graph<T, U> transposed = new AdjacencyListGraph<>(true, isWeighted());
+
+        for(T vertex : vertexSet()){
+            transposed.addVertex(vertex);
+        }
+
+        for(T source : vertexSet()){
+            for(T neighbour : getNeightbours(source)){
+                U weight = getRelation(source, neighbour);
+                transposed.addRelation(neighbour, source, weight);
+            }
+        }
+
+        return transposed;
     }
 }

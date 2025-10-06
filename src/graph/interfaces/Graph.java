@@ -10,11 +10,14 @@ public interface Graph<T, U> {
     void removeVertex(T vertex);
     void addRelation(T first, T second, U weight);
     void removeRelation(T first, T second);
+    U getRelation(T first, T second);
     //algorithm functionalities
     boolean hasRelation(T first, T second);
     int degreeOf(T vertex);
     boolean hasVertex(T vertex);
     Set<T> getNeightbours(T vertex);
+    Set<T> vertexSet();
+    Graph<T, U> getTransposed();
     //general atributes
     int size();
     void showVertex();
