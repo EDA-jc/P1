@@ -23,9 +23,34 @@ public class Kosaraju<U, V> {
         }
 
         while (!stack.empty()){
-            
+            U vertex = stack.pop();
+            if (!visited.get(vertex)) {
+                // Cria lista para a componente atual
+                HashMap<U, Boolean> componentVisited = new HashMap<>();
+                for (U v : transposed.vertexSet()) {
+                    componentVisited.put(v, false);
+                }
+
+                // Colete os vértices da SCC
+                Stack<U> sccStack = new Stack<>();
+                dfsCollect(vertex, visited, sccStack, transposed);
+
+                // Imprime ou armazena a SCC
+                System.out.println("Componente fortemente conexa: " + sccStack);
+            }
         }
     }
+
+    private void dfsCollect(U vertex, HashMap<U, Boolean> visited, Stack<U> sccStack, Graph<U, V> graph) {
+        visited.put(vertex, true);
+        sccStack.push(vertex);
+        for (U neighbour : graph.getNeightbours(vertex)) {
+            if (!visited.get(neighbour)) {
+                dfsCollect(neighbour, visited, sccStack, graph);
+            }
+        }
+    }
+
     private void fillOrder(U vertex, HashMap<U, Boolean> visited, Stack<U> stack, Graph<U, V> graph){
         visited.put(vertex, true);
         for(U neighbour : graph.getNeightbours(vertex)){
