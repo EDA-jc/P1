@@ -7,6 +7,27 @@ import java.util.Set;
 import org.example.core.abstracts.GraphBase;
 import org.example.core.interfaces.Graph;
 
+/**
+ * Implementação da estrutura de dados de um grafo baseada na representação por Listas de Adjacência.
+ * <p>
+ * A estrutura interna utiliza um {@code HashMap} aninhado. O mapa principal associa
+ * cada vértice a um segundo mapa, que funciona como sua lista de adjacências.
+ * Este segundo mapa, por sua vez, mapeia cada vértice vizinho ao peso da aresta
+ * correspondente.
+ * <p>
+ * O peso da aresta é encapsulado em um {@code Optional}, o que confere flexibilidade
+ * para que a classe suporte tanto grafos ponderados quanto não-ponderados com a mesma
+ * implementação. Esta abordagem é otimizada para grafos esparsos, tornando-a
+ * ideal para aplicações como análise de redes sociais.
+ *
+ * @param <T> O tipo que representa os vértices do grafo (ex: String, Integer).
+ * @param <U> O tipo que representa o peso das arestas (ex: Double).
+ *
+ * @see org.example.core.interfaces.Graph
+ * @author Angelo - Implementação
+ * @author Camila - Documentação e Revisão
+ */
+
 public class AdjacencyListGraph<T, U>
         extends GraphBase<T, U> {
     //type restricted attributes
